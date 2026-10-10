@@ -79,7 +79,7 @@ jobs:
         run: ./scripts/prepare-sdk-release.sh sdk
 
       - name: 整理後の SDK を検証
-        run: ./scripts/check-sdk.sh sdk
+        run: make check-sdk
       - name: 整理内容をコミット
         run: |
           set -euo pipefail

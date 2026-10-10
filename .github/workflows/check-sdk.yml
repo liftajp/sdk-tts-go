@@ -7,6 +7,8 @@ on:
     paths:
       - sdk/**
       - SDK_VERSION
+      - Makefile
+      - scripts/**
       - .github/workflows/check-sdk.yml
       - .github/workflows/release-sdk.yml
   workflow_dispatch:
@@ -31,7 +33,7 @@ jobs:
           cache-dependency-path: sdk/go.sum
 
       - name: SDK パッケージを検証
-        run: ./scripts/check-sdk.sh sdk
+        run: make check-sdk
 
       - name: Trivy セキュリティスキャン
         uses: aquasecurity/trivy-action@v0.36.0
@@ -43,22 +45,4 @@ jobs:
           exit-code: '1'
 
       - name: SDK バージョンを確認
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          current="$(tr -d '[:space:]' < SDK_VERSION)"
-          previous="$(git show 'HEAD^:SDK_VERSION' 2>/dev/null | tr -d '[:space:]' || true)"
-
-          if [[ ! "$current" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
-            echo "::error::SDK_VERSION is not a valid semantic version: $current"
-            exit 1
-          fi
-
-          if [[ -z "$previous" ]]; then
-            echo "SDK_VERSION=$current (initial version)"
-          elif [[ "$current" == "$previous" ]]; then
-            echo "::warning::SDK_VERSION did not change ($current). The SDK check passed, but a release will not be created until the version is updated."
-          else
-            echo "SDK_VERSION changed: $previous -> $current"
-          fi
+        run: make validate-version

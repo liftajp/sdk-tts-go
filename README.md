@@ -11,7 +11,9 @@ sdk-tts-go/
 │   └── release-sdk.yml     # 手動実行するリリース処理
 ├── scripts/
 │   ├── check-sdk.sh        # SDK のコンパイル確認
+│   ├── check-version.sh    # SDK_VERSION の確認
 │   └── prepare-sdk-release.sh # release ブランチ用の整理
+├── Makefile                # ローカル検証コマンド
 ├── SDK_VERSION             # Partner Center の版と Build ID を記録
 ├── README.md               # リポジトリの運用手順
 └── sdk/                    # Partner Center から取得した SDK 本体
@@ -23,6 +25,23 @@ sdk-tts-go/
 ```
 
 SDK の module 宣言は、ダウンロード元の値 `tiktokshop/open/sdk_golang` を維持します。これは生成パッケージをそのまま保つためです。利用側のプロジェクトで参照方法を決める場合も、SDK 本体の module 宣言を書き換えません。
+
+## ローカル検証
+
+リポジトリのルートで次のコマンドを実行します。
+
+```bash
+# 利用可能なコマンドを確認
+make help
+
+# SDK のコンパイルと SDK_VERSION を確認
+make check
+
+# CI と同じ検証（Trivy のインストールが必要）
+make ci
+```
+
+個別に実行する場合は `make check-sdk`、`make validate-version`、`make security-scan` を使用します。リリースブランチ用の整理内容をローカルで確認する場合は `make prepare-release` を実行します。
 
 ## SDK の更新
 
