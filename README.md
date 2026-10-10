@@ -7,7 +7,7 @@ module instead of copying the SDK into their own `third_party` directory.
 ## Source and update policy
 
 - Source package: TikTok Shop Partner Center Go SDK
-- Go module: `github.com/liftajp/third-party-tts-go`
+- Go module: `github.com/liftajp/sdk-tts-go`
 - Generated API schema: [`api/openapi.yaml`](api/openapi.yaml)
 - Upstream changelog: [`changelog.txt`](changelog.txt)
 - Generated code lives under `apis/`, `models/`, and `utils/`.
