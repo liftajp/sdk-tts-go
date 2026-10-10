@@ -12,7 +12,7 @@ package affiliate_seller_v202607
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the AffiliateSeller202607GetWeeklyCreatorOutreachQuotaResponseDataDataGmvLevelRule type satisfies the MappedNullable interface at compile time

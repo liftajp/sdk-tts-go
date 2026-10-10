@@ -12,7 +12,7 @@ package promotion_v202309
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the Promotion202309GetActivityResponseData type satisfies the MappedNullable interface at compile time

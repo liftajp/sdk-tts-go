@@ -12,7 +12,7 @@ package order_v202407
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the Order202407GetPriceDetailResponseDataLineItemsSellerFundedProductPromotions type satisfies the MappedNullable interface at compile time

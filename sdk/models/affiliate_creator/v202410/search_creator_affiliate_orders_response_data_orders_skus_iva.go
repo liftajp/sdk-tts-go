@@ -12,7 +12,7 @@ package affiliate_creator_v202410
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the AffiliateCreator202410SearchCreatorAffiliateOrdersResponseDataOrdersSkusIva type satisfies the MappedNullable interface at compile time

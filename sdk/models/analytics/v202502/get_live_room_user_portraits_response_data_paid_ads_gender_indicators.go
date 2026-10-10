@@ -12,7 +12,7 @@ package analytics_v202502
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the Analytics202502GetLiveRoomUserPortraitsResponseDataPaidAdsGenderIndicators type satisfies the MappedNullable interface at compile time

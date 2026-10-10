@@ -12,7 +12,7 @@ package fulfillment_v202601
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the Fulfillment202601RedeemInfoCallbackRequestBodyOrderInfoList type satisfies the MappedNullable interface at compile time

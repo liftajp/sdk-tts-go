@@ -12,7 +12,7 @@ package data_reconciliation_v202310
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the DataReconciliation202310QualityFactoryOrderDataImportAPIResponseDataErrors type satisfies the MappedNullable interface at compile time

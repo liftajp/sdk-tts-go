@@ -12,7 +12,7 @@ package return_refund_v202606
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the ReturnRefund202606RejectReturnRequestBodyImages type satisfies the MappedNullable interface at compile time

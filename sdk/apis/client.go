@@ -37,7 +37,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
 var (

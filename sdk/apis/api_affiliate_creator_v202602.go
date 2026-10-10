@@ -17,7 +17,7 @@ import (
     "net/http"
     "net/url"
 
-    "tiktokshop/open/sdk_golang/models/affiliate_creator/v202602"
+    "github.com/liftajp/sdk-tts-go/sdk/models/affiliate_creator/v202602"
 )
 
 

@@ -19,7 +19,7 @@ import (
     "os"
     "reflect"
 
-    "tiktokshop/open/sdk_golang/models/return_refund/v202405"
+    "github.com/liftajp/sdk-tts-go/sdk/models/return_refund/v202405"
 )
 
 

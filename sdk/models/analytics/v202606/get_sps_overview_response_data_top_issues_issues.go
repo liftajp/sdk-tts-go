@@ -12,7 +12,7 @@ package analytics_v202606
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the Analytics202606GetSPSOverviewResponseDataTopIssuesIssues type satisfies the MappedNullable interface at compile time

@@ -12,7 +12,7 @@ package product_v202409
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the Product202409SearchManufacturersResponseDataManufacturers type satisfies the MappedNullable interface at compile time

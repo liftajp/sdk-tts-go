@@ -12,7 +12,7 @@ package affiliate_seller_v202508
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the AffiliateSeller202508QueryTargetCollaborationDetailResponseDataTargetCollaborationProductsOriginalPrice type satisfies the MappedNullable interface at compile time

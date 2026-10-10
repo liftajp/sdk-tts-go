@@ -12,7 +12,7 @@ package product_v202404
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the Product202404OptimizeImagesResponseData type satisfies the MappedNullable interface at compile time

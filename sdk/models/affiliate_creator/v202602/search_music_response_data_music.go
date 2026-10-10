@@ -12,7 +12,7 @@ package affiliate_creator_v202602
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the AffiliateCreator202602SearchMusicResponseDataMusic type satisfies the MappedNullable interface at compile time

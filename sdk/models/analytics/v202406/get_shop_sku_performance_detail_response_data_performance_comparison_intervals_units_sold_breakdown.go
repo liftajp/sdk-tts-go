@@ -12,7 +12,7 @@ package analytics_v202406
 
 import (
     "encoding/json"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 )
 
             // checks if the Analytics202406GetShopSKUPerformanceDetailResponseDataPerformanceComparisonIntervalsUnitsSoldBreakdown type satisfies the MappedNullable interface at compile time

@@ -20,7 +20,7 @@ import (
     "os"
     "reflect"
 
-    "tiktokshop/open/sdk_golang/models/fulfillment/v202309"
+    "github.com/liftajp/sdk-tts-go/sdk/models/fulfillment/v202309"
 )
 
 

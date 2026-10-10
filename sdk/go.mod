@@ -1,4 +1,4 @@
-module tiktokshop/open/sdk_golang
+module github.com/liftajp/sdk-tts-go/sdk
 
 go 1.23
 

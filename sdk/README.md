@@ -45,10 +45,10 @@ import (
     "fmt"
     "testing"
 
-    "tiktokshop/open/sdk_golang/apis"
-    "tiktokshop/open/sdk_golang/utils"
+    "github.com/liftajp/sdk-tts-go/sdk/apis"
+    "github.com/liftajp/sdk-tts-go/sdk/utils"
 
-    product_v202502 "tiktokshop/open/sdk_golang/models/product/v202502"
+    product_v202502 "github.com/liftajp/sdk-tts-go/sdk/models/product/v202502"
 )
 ```
 
