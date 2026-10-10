@@ -29,6 +29,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version-file: sdk/go.mod
+          cache-dependency-path: sdk/go.sum
 
       - name: リリース情報を確認
         id: release

@@ -28,6 +28,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version-file: sdk/go.mod
+          cache-dependency-path: sdk/go.sum
 
       - name: SDK パッケージを検証
         run: ./scripts/check-sdk.sh sdk
