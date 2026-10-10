@@ -55,7 +55,7 @@ SDK の module 宣言は、ダウンロード元の値 `tiktokshop/open/sdk_gola
 `main` への push で `SDK チェック` workflow が起動します。次の確認を自動で行います。
 
 - SDK の生成パッケージと model がコンパイルできること
-- Trivy で SDK、依存関係、秘密情報、設定の HIGH / CRITICAL を検出しないこと
+- Trivy で SDK 内の秘密情報と設定の HIGH / CRITICAL を検出しないこと
 - `SDK_VERSION` が有効な形式であること
 - 前回の commit と version が同じかどうか
 
@@ -88,8 +88,7 @@ SDK_VERSION: v1.0.0-tts.20261010034538621
 ローカルで同じ Trivy スキャンを実行する場合:
 
 ```bash
-trivy fs --scanners vuln,secret,misconfig \
+trivy fs --scanners secret,misconfig \
   --severity HIGH,CRITICAL \
-  --ignore-unfixed \
   --exit-code 1 .
 ```
