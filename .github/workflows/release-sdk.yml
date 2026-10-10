@@ -5,8 +5,9 @@ on:
     branches:
       - main
     paths:
-      - golang/**
+      - sdk/**
       - SDK_VERSION
+      - .github/workflows/release-sdk.yml
   workflow_dispatch:
 
 permissions:
@@ -29,11 +30,11 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: golang/go.mod
+          go-version-file: sdk/go.mod
 
       - name: Test generated SDK
         run: go test ./...
-        working-directory: golang
+        working-directory: sdk
 
       - name: Check SDK version change
         id: version_changed
@@ -43,12 +44,17 @@ jobs:
 
           current="$(tr -d '[:space:]' < SDK_VERSION)"
           previous="$(git show "${GITHUB_SHA}^:SDK_VERSION" 2>/dev/null | tr -d '[:space:]' || true)"
-          if [[ "$current" == "$previous" ]]; then
+          tag="sdk/$current"
+          release_branch="release/$current"
+          tag_exists="$(git ls-remote --tags origin "refs/tags/$tag" | sed -n '1p')"
+          branch_exists="$(git ls-remote --heads origin "$release_branch" | sed -n '1p')"
+
+          if [[ "$current" == "$previous" && -n "$tag_exists" && -n "$branch_exists" ]]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "SDK_VERSION is unchanged; skip release creation."
+            echo "SDK_VERSION is unchanged and already published; skip release creation."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "SDK_VERSION changed from '$previous' to '$current'."
+            echo "SDK_VERSION changed or is not published yet: '$current'."
           fi
 
       - name: Resolve release version
@@ -64,7 +70,7 @@ jobs:
             exit 1
           fi
 
-          tag="golang/$version"
+          tag="sdk/$version"
           if git show-ref --tags --verify --quiet "refs/tags/$tag"; then
             echo "Tag already exists: $tag" >&2
             exit 1
