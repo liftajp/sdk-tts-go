@@ -21,12 +21,12 @@ jobs:
 
     steps:
       - name: ソースを取得
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Go を設定
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7
         with:
           go-version-file: sdk/go.mod
           cache-dependency-path: sdk/go.sum
