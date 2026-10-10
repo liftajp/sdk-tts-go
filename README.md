@@ -14,6 +14,8 @@ sdk-tts-go/
 │   └── prepare-sdk-release.sh # release ブランチ用の整理
 ├── SDK_VERSION             # Partner Center の版と Build ID を記録
 ├── README.md               # リポジトリの運用手順
+├── docs/
+│   └── external-documents.md # 外部ドキュメントへのリンク
 └── sdk/                    # Partner Center から取得した SDK 本体
     ├── api/
     ├── apis/
@@ -23,6 +25,10 @@ sdk-tts-go/
 ```
 
 SDK の module 宣言は、ダウンロード元の値 `tiktokshop/open/sdk_golang` を維持します。これは生成パッケージをそのまま保つためです。利用側のプロジェクトで参照方法を決める場合も、SDK 本体の module 宣言を書き換えません。
+
+## 外部ドキュメント
+
+[外部ドキュメント](docs/external-documents.md)
 
 ## SDK の更新
 
