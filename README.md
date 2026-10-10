@@ -1,41 +1,73 @@
 # TikTok Shop Go SDK
 
-This repository contains the generated Go SDK downloaded from TikTok Shop
-Partner Center. Application repositories consume a tagged version of this
-module instead of copying the SDK into their own `third_party` directory.
+このリポジトリは、TikTok Shop Partner Center から取得した公式 Go SDK の保存と公開を管理します。リポジトリ固有の管理ファイルはルートに置き、生成された SDK 本体は `golang/` に分離します。SDK を更新するときは `golang/` だけを入れ替えます。
 
-## Source and update policy
+## ディレクトリ構成
 
-- Source package: TikTok Shop Partner Center Go SDK
-- Go module: `github.com/liftajp/sdk-tts-go`
-- Generated API schema: [`api/openapi.yaml`](api/openapi.yaml)
-- Upstream changelog: [`changelog.txt`](changelog.txt)
-- Generated code lives under `apis/`, `models/`, and `utils/`.
+```text
+sdk-tts-go/
+├── .github/workflows/       # CI: テスト、release ブランチ、タグの作成
+├── SDK_VERSION              # 公開対象の SDK バージョン
+├── README.md                # このリポジトリの運用手順
+└── golang/                  # Partner Center から取得して整えた Go SDK
+    ├── api/
+    ├── apis/
+    ├── models/
+    ├── utils/
+    └── go.mod
+```
 
-The generated source is kept as a standalone Go module. The service's TikTok
-adapter owns the token request transport because the downloaded
-`apis/access_token.go` helper does not expose request context, an injectable
-HTTP client, or the complete refresh response. The SDK source itself should
-not be hand-edited.
+Go module のパスは次のとおりです。
 
-## Updating the generated SDK
+```text
+github.com/liftajp/sdk-tts-go/golang
+```
 
-When TikTok publishes a new SDK:
+利用側のコードでは、SDK の `golang/apis`、`golang/models`、`golang/utils` をこの module から import します。ルートには Go module を置かないため、SDK を入れ替えるときに workflow、バージョンファイル、運用ドキュメントを誤って削除しません。
 
-1. Download and extract the complete package from Partner Center.
-2. Replace the generated `api/`, `apis/`, `models/`, and `utils/` directories
-   and `changelog.txt`.
-3. Keep the module path as `github.com/liftajp/sdk-tts-go` and update generated
-   imports if the package still uses `tiktokshop/open/sdk_golang`.
-4. Update `SDK_VERSION` with the immutable tag to publish, for example:
-   `v1.0.0-tts.20261010034538621`.
-5. Run `go test ./...` and commit the complete SDK replacement to `main`.
+## SDK の更新手順
 
-The GitHub Actions release workflow then creates `release/<SDK_VERSION>` from
-that commit and adds the same version as an annotated Git tag. A tag points to
-the commit; it is not nested inside a branch. The workflow rejects an existing
-version or release branch so a published SDK cannot be overwritten.
+1. TikTok Shop Partner Center から完全な Go SDK をダウンロードし、展開します。
+2. リポジトリ内の `golang/` だけを削除し、展開した SDK のディレクトリを `golang/` に変更して配置します。ルートの `.github/`、`SDK_VERSION`、`README.md` は削除しません。
+3. `golang/go.mod` の module を次の値に変更します。
 
-Generated examples and network tests are not part of the consumable module.
-Keep them outside the module if they are needed for upstream reference, and do
-not commit credentials from generated examples.
+   ```text
+   module github.com/liftajp/sdk-tts-go/golang
+   ```
+
+4. 生成コード内に `tiktokshop/open/sdk_golang` が残っている場合は、`github.com/liftajp/sdk-tts-go/golang` に置き換えます。
+5. Partner Center に表示される SDK バージョンと Build ID を `SDK_VERSION` に記録します。例:
+
+   ```text
+   v1.0.0-tts.20261010034538621
+   ```
+
+6. ルートディレクトリでテストを実行し、変更を `main` に push します。
+
+   ```bash
+   (cd golang && go test ./...)
+   git add golang SDK_VERSION
+   git commit -m "chore: update TikTok Shop Go SDK"
+   git push origin main
+   ```
+
+ダウンロードした SDK に含まれる `.DS_Store`、`.travis.yml`、`git_push.sh` はリポジトリ管理用のファイルではありません。ネットワークへ接続する生成サンプルテストも CI の対象外として削除します。認証情報をソースコードやテスト結果にコミットしないでください。
+
+## CI による公開ルール
+
+`main` に SDK 本体を push すると GitHub Actions がテストを実行します。`SDK_VERSION` が前回のコミットから変更された場合だけ、次の公開処理を行います。
+
+1. `golang/go.mod` から Go のバージョンを設定します。
+2. `(cd golang && go test ./...)` を実行します。
+3. `release/<SDK_VERSION>` ブランチを作成します。
+4. 同じコミットに `golang/<SDK_VERSION>` の annotated tag を作成します。
+
+例:
+
+```text
+SDK_VERSION: v1.0.0-tts.20261010034538621
+ブランチ:    release/v1.0.0-tts.20261010034538621
+タグ:        golang/v1.0.0-tts.20261010034538621
+```
+
+Go module が `golang/` のサブディレクトリにあるため、Go の module version として認識させるタグには `golang/` プレフィックスを付けます。公開済みのバージョンや release ブランチは再利用しません。

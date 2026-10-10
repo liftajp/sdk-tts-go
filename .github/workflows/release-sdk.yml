@@ -5,13 +5,8 @@ on:
     branches:
       - main
     paths:
-      - api/**
-      - apis/**
-      - models/**
-      - utils/**
-      - changelog.txt
-      - go.mod
-      - go.sum
+      - golang/**
+      - SDK_VERSION
   workflow_dispatch:
 
 permissions:
@@ -34,13 +29,31 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: go.mod
+          go-version-file: golang/go.mod
 
       - name: Test generated SDK
         run: go test ./...
+        working-directory: golang
+
+      - name: Check SDK version change
+        id: version_changed
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          current="$(tr -d '[:space:]' < SDK_VERSION)"
+          previous="$(git show "${GITHUB_SHA}^:SDK_VERSION" 2>/dev/null | tr -d '[:space:]' || true)"
+          if [[ "$current" == "$previous" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "SDK_VERSION is unchanged; skip release creation."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "SDK_VERSION changed from '$previous' to '$current'."
+          fi
 
       - name: Resolve release version
         id: release
+        if: steps.version_changed.outputs.changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -51,8 +64,9 @@ jobs:
             exit 1
           fi
 
-          if git show-ref --tags --verify --quiet "refs/tags/$version"; then
-            echo "Tag already exists: $version" >&2
+          tag="golang/$version"
+          if git show-ref --tags --verify --quiet "refs/tags/$tag"; then
+            echo "Tag already exists: $tag" >&2
             exit 1
           fi
 
@@ -65,12 +79,15 @@ jobs:
           {
             echo "version=$version"
             echo "branch=$release_branch"
+            echo "tag=$tag"
           } >> "$GITHUB_OUTPUT"
 
       - name: Create release branch and tag
+        if: steps.version_changed.outputs.changed == 'true'
         env:
           RELEASE_VERSION: ${{ steps.release.outputs.version }}
           RELEASE_BRANCH: ${{ steps.release.outputs.branch }}
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
         run: |
           set -euo pipefail
 
@@ -80,5 +97,5 @@ jobs:
           git switch -c "$RELEASE_BRANCH"
           git push origin "$RELEASE_BRANCH"
 
-          git tag -a "$RELEASE_VERSION" -m "Release TikTok Shop Go SDK $RELEASE_VERSION"
-          git push origin "$RELEASE_VERSION"
+          git tag -a "$RELEASE_TAG" -m "Release TikTok Shop Go SDK $RELEASE_VERSION"
+          git push origin "$RELEASE_TAG"
