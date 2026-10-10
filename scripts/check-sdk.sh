@@ -9,6 +9,19 @@ if [[ ! -d "$sdk_dir" ]]; then
   exit 1
 fi
 
+expected_module="github.com/liftajp/sdk-tts-go/sdk"
+actual_module="$(awk '$1 == "module" {print $2; exit}' "$sdk_dir/go.mod")"
+if [[ "$actual_module" != "$expected_module" ]]; then
+  echo "SDK module path が不正です: $actual_module (期待値: $expected_module)" >&2
+  echo "ダウンロード後に make normalize-sdk を実行してください" >&2
+  exit 1
+fi
+
+if rg -n --glob '*.go' --glob 'go.mod' 'tiktokshop/open/sdk_golang' "$sdk_dir" >/dev/null; then
+  echo "SDK 内に旧 module path が残っています。make normalize-sdk を実行してください" >&2
+  exit 1
+fi
+
 cd "$sdk_dir"
 packages=()
 while IFS= read -r package; do
