@@ -1,6 +1,6 @@
 # TikTok Shop Go SDK
 
-このリポジトリは、TikTok Shop Partner Center からダウンロードした Go SDK を保存し、確認済みのリリースを管理します。`sdk/` の API と model は Partner Center の生成パッケージを基に保存します。リポジトリから Go module として参照できるよう、module 名と生成コード内の内部 import はこのリポジトリの module path に統一します。API のロジックは手動で変更しません。
+このリポジトリは、TikTok Shop Partner Center からダウンロードした Go SDK を保存し、確認済みのリリースを管理します。`sdk/` の API と model は Partner Center の生成パッケージを基に保存します。main にはダウンロードした SDK をそのまま保存し、公開用の release ブランチを作るときだけ module 名と生成コード内の内部 import をこのリポジトリの module path に統一します。API のロジックは手動で変更しません。
 
 ## 構成
 
@@ -12,7 +12,7 @@ sdk-tts-go/
 ├── scripts/
 │   ├── check-sdk.sh        # SDK のコンパイル確認
 │   ├── check-version.sh    # SDK_VERSION の確認
-│   ├── normalize-sdk.sh    # SDK module path の統一
+│   ├── normalize-sdk.sh    # release 用 module path の統一
 │   └── prepare-sdk-release.sh # release ブランチ用の整理
 ├── Makefile                # ローカル検証コマンド
 ├── SDK_VERSION             # Partner Center の版と Build ID を記録
@@ -25,7 +25,7 @@ sdk-tts-go/
     └── go.mod
 ```
 
-SDK の module 宣言は `github.com/liftajp/sdk-tts-go/sdk` です。利用側のプロジェクトでは、この module を必要なバージョンで参照します。
+リリース物の SDK module 宣言は `github.com/liftajp/sdk-tts-go/sdk` です。利用側のプロジェクトでは、この module を必要なバージョンで参照します。
 
 ## ローカル検証
 
@@ -48,20 +48,19 @@ make ci
 
 1. Partner Center から完全な Go SDK をダウンロードして展開します。
 2. リポジトリの `sdk/` だけを入れ替えます。ルートの `.github/`、`scripts/`、`SDK_VERSION`、`README.md` は削除しません。
-3. `make normalize-sdk` を実行して module 名と生成コード内の内部 import をリポジトリの module path に統一します。
-4. Partner Center に表示された version と Build ID をルートの `SDK_VERSION` に記録します。例:
+3. Partner Center に表示された version と Build ID をルートの `SDK_VERSION` に記録します。例:
 
    ```text
    v1.0.0-tts.20261010034538621
    ```
 
-5. ローカルで確認します。
+4. ローカルで確認します。main のチェックでは、ダウンロード直後の module path のままでもコンパイルできます。
 
    ```bash
    ./scripts/check-sdk.sh sdk
    ```
 
-6. `sdk/` と `SDK_VERSION` を `main` に commit、push します。
+5. `sdk/` と `SDK_VERSION` を `main` に commit、push します。
 
    ```bash
    git add sdk SDK_VERSION
@@ -89,7 +88,7 @@ version が変わっていない場合も workflow は失敗させず、GitHub A
 リリース workflow は次の順序で処理します。
 
 1. `release/<SDK_VERSION>` ブランチを `main` から作成します。
-2. release ブランチ上で `scripts/prepare-sdk-release.sh` を実行します。
+2. release ブランチ上で `scripts/prepare-sdk-release.sh` を実行します。この処理の中で module 名と生成コード内の内部 import をリポジトリの module path に統一します。
 3. 公開物に不要な生成用ファイル、ネットワーク接続のサンプルテスト、`test/` ディレクトリだけを削除します。API、model、schema、changelog、README は残します。
 4. 整理後の SDK を再度コンパイル確認します。
 5. 整理後のファイルを Trivy でセキュリティスキャンします。

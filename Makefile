@@ -6,7 +6,7 @@ TRIVY_SEVERITY ?= HIGH,CRITICAL
 
 .DEFAULT_GOAL := help
 
-.PHONY: help check-sdk validate-version security-scan check ci normalize-sdk prepare-release
+.PHONY: help check-sdk validate-version security-scan check ci prepare-release
 
 help: ## 利用可能なコマンドを表示します
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z0-9_-]+:.*##/ {printf "%-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -24,9 +24,6 @@ security-scan: ## Trivy で秘密情報と設定をスキャンします
 check: check-sdk validate-version ## SDK とバージョンを確認します
 
 ci: check security-scan ## CI と同じローカル検証を実行します
-
-normalize-sdk: ## ダウンロードした SDK をリポジトリの module path に統一します
-	./scripts/normalize-sdk.sh "$(SDK_DIR)"
 
 prepare-release: ## リリース用に SDK の不要ファイルを整理します
 	./scripts/prepare-sdk-release.sh "$(SDK_DIR)"
