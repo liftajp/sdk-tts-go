@@ -12,7 +12,7 @@ package affiliate_seller_v202410
 
 import (
     "encoding/json"
-    "github.com/liftajp/sdk-tts-go/sdk/utils"
+    "tiktokshop/open/sdk_golang/utils"
 )
 
             // checks if the AffiliateSeller202410GetOpenCollaborationSampleRulesResponseData type satisfies the MappedNullable interface at compile time

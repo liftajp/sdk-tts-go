@@ -12,7 +12,7 @@ package order_v202606
 
 import (
     "encoding/json"
-    "github.com/liftajp/sdk-tts-go/sdk/utils"
+    "tiktokshop/open/sdk_golang/utils"
 )
 
             // checks if the Order202606PodDetailsRequestBodyQueryOrderLines type satisfies the MappedNullable interface at compile time

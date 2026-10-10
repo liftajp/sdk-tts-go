@@ -12,7 +12,7 @@ package fulfillment_v202609
 
 import (
     "encoding/json"
-    "github.com/liftajp/sdk-tts-go/sdk/utils"
+    "tiktokshop/open/sdk_golang/utils"
 )
 
             // checks if the Fulfillment202609TrackingstatusupdateResponseDataTrackResults type satisfies the MappedNullable interface at compile time

@@ -12,7 +12,7 @@ package logistics_v202606
 
 import (
     "encoding/json"
-    "github.com/liftajp/sdk-tts-go/sdk/utils"
+    "tiktokshop/open/sdk_golang/utils"
 )
 
             // checks if the Logistics202606ShippingTemplateExistV2ResponseData type satisfies the MappedNullable interface at compile time

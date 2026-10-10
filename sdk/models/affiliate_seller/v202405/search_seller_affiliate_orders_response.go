@@ -12,7 +12,7 @@ package affiliate_seller_v202405
 
 import (
     "encoding/json"
-    "github.com/liftajp/sdk-tts-go/sdk/utils"
+    "tiktokshop/open/sdk_golang/utils"
 )
 
             // checks if the AffiliateSeller202405SearchSellerAffiliateOrdersResponse type satisfies the MappedNullable interface at compile time

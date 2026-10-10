@@ -12,7 +12,7 @@ package seller_v202309
 
 import (
     "encoding/json"
-    "github.com/liftajp/sdk-tts-go/sdk/utils"
+    "tiktokshop/open/sdk_golang/utils"
 )
 
             // checks if the Seller202309GetSellerPermissionsResponseData type satisfies the MappedNullable interface at compile time

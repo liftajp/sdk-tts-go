@@ -1,20 +1,18 @@
-name: Release SDK
+name: SDK リリース
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - sdk/**
-      - SDK_VERSION
-      - .github/workflows/release-sdk.yml
   workflow_dispatch:
+    inputs:
+      version:
+        description: "公開する SDK_VERSION。空欄の場合は SDK_VERSION ファイルを使用します。"
+        required: false
+        type: string
 
 permissions:
   contents: write
 
 concurrency:
-  group: release-sdk
+  group: sdk-release
   cancel-in-progress: false
 
 jobs:
@@ -22,86 +20,84 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out source
+      - name: ソースを取得
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set up Go
+      - name: Go を設定
         uses: actions/setup-go@v5
         with:
           go-version-file: sdk/go.mod
 
-      - name: Test generated SDK
-        run: go test ./...
-        working-directory: sdk
-
-      - name: Check SDK version change
-        id: version_changed
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          current="$(tr -d '[:space:]' < SDK_VERSION)"
-          previous="$(git show "${GITHUB_SHA}^:SDK_VERSION" 2>/dev/null | tr -d '[:space:]' || true)"
-          tag="sdk/$current"
-          release_branch="release/$current"
-          tag_exists="$(git ls-remote --tags origin "refs/tags/$tag" | sed -n '1p')"
-          branch_exists="$(git ls-remote --heads origin "$release_branch" | sed -n '1p')"
-
-          if [[ "$current" == "$previous" && -n "$tag_exists" && -n "$branch_exists" ]]; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "SDK_VERSION is unchanged and already published; skip release creation."
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "SDK_VERSION changed or is not published yet: '$current'."
-          fi
-
-      - name: Resolve release version
+      - name: リリース情報を確認
         id: release
-        if: steps.version_changed.outputs.changed == 'true'
         shell: bash
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
         run: |
           set -euo pipefail
 
-          version="$(tr -d '[:space:]' < SDK_VERSION)"
+          version="${REQUESTED_VERSION:-}"
+          if [[ -z "$version" ]]; then
+            version="$(tr -d '[:space:]' < SDK_VERSION)"
+          fi
+
           if [[ ! "$version" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
-            echo "SDK_VERSION must be a semantic version beginning with v: $version" >&2
+            echo "::error::SDK_VERSION が不正です: $version"
             exit 1
           fi
 
+          branch="release/$version"
           tag="sdk/$version"
-          if git show-ref --tags --verify --quiet "refs/tags/$tag"; then
-            echo "Tag already exists: $tag" >&2
+
+          if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+            echo "::error::リリースブランチは既に存在します: $branch"
             exit 1
           fi
 
-          release_branch="release/$version"
-          if git ls-remote --exit-code --heads origin "$release_branch" >/dev/null 2>&1; then
-            echo "Release branch already exists: $release_branch" >&2
+          if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
+            echo "::error::タグは既に存在します: $tag"
             exit 1
           fi
 
           {
             echo "version=$version"
-            echo "branch=$release_branch"
+            echo "branch=$branch"
             echo "tag=$tag"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Create release branch and tag
-        if: steps.version_changed.outputs.changed == 'true'
+      - name: リリースブランチを作成
         env:
-          RELEASE_VERSION: ${{ steps.release.outputs.version }}
           RELEASE_BRANCH: ${{ steps.release.outputs.branch }}
-          RELEASE_TAG: ${{ steps.release.outputs.tag }}
         run: |
           set -euo pipefail
+          git switch -c "$RELEASE_BRANCH"
 
+      - name: 公開用ファイルを整理
+        run: ./scripts/prepare-sdk-release.sh sdk
+
+      - name: 整理後の SDK を検証
+        run: ./scripts/check-sdk.sh sdk
+
+      - name: 整理内容をコミット
+        run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sdk
+          git commit -m "chore: prepare SDK release ${{ steps.release.outputs.version }}"
 
-          git switch -c "$RELEASE_BRANCH"
-          git push origin "$RELEASE_BRANCH"
+      - name: リリースブランチを push
+        env:
+          RELEASE_BRANCH: ${{ steps.release.outputs.branch }}
+        run: git push origin "$RELEASE_BRANCH"
 
+      - name: タグを作成して push
+        env:
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+          RELEASE_VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          set -euo pipefail
           git tag -a "$RELEASE_TAG" -m "Release TikTok Shop Go SDK $RELEASE_VERSION"
           git push origin "$RELEASE_TAG"

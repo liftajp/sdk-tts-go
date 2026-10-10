@@ -12,7 +12,7 @@ package promotion_v202406
 
 import (
     "encoding/json"
-    "github.com/liftajp/sdk-tts-go/sdk/utils"
+    "tiktokshop/open/sdk_golang/utils"
 )
 
             // checks if the Promotion202406GetCouponResponseDataCouponUsageLimits type satisfies the MappedNullable interface at compile time

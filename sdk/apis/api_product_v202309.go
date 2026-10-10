@@ -19,7 +19,7 @@ import (
     "strings"
     "os"
 
-    "github.com/liftajp/sdk-tts-go/sdk/models/product/v202309"
+    "tiktokshop/open/sdk_golang/models/product/v202309"
 )
 
 

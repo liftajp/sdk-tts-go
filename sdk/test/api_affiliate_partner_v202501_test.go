@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/liftajp/sdk-tts-go/sdk/apis"
+	openapiclient "tiktokshop/open/sdk_golang/apis"
 )
 
 func Test_sdk_golang_AffiliatePartnerV202501APIService(t *testing.T) {

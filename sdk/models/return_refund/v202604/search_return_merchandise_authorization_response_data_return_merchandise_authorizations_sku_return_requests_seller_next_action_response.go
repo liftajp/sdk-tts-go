@@ -12,7 +12,7 @@ package return_refund_v202604
 
 import (
     "encoding/json"
-    "github.com/liftajp/sdk-tts-go/sdk/utils"
+    "tiktokshop/open/sdk_golang/utils"
 )
 
             // checks if the ReturnRefund202604SearchReturnMerchandiseAuthorizationResponseDataReturnMerchandiseAuthorizationsSkuReturnRequestsSellerNextActionResponse type satisfies the MappedNullable interface at compile time

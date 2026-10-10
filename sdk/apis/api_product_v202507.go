@@ -18,7 +18,7 @@ import (
     "net/url"
     "strings"
 
-    "github.com/liftajp/sdk-tts-go/sdk/models/product/v202507"
+    "tiktokshop/open/sdk_golang/models/product/v202507"
 )
 
 

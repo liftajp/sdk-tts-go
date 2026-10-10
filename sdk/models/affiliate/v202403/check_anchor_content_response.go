@@ -12,7 +12,7 @@ package affiliate_v202403
 
 import (
     "encoding/json"
-    "github.com/liftajp/sdk-tts-go/sdk/utils"
+    "tiktokshop/open/sdk_golang/utils"
 )
 
             // checks if the Affiliate202403CheckAnchorContentResponse type satisfies the MappedNullable interface at compile time
