@@ -12,7 +12,7 @@ package data_reconciliation_v202401
 
 import (
 	"encoding/json"
-	"github.com/liftajp/third-party-tts-go/utils"
+	"github.com/liftajp/sdk-tts-go/utils"
 )
 
 // checks if the DataReconciliation202401QualityFactoryOrderDataImportAPIResponseData type satisfies the MappedNullable interface at compile time

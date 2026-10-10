@@ -19,7 +19,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/liftajp/third-party-tts-go/models/product/v202309"
+	"github.com/liftajp/sdk-tts-go/models/product/v202309"
 )
 
 // ProductV202309APIService ProductV202309API service

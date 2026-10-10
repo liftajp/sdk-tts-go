@@ -17,7 +17,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/liftajp/third-party-tts-go/models/open/v202512"
+	"github.com/liftajp/sdk-tts-go/models/open/v202512"
 )
 
 // OpenV202512APIService OpenV202512API service

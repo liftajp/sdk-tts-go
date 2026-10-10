@@ -17,7 +17,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/liftajp/third-party-tts-go/models/authorization/v202403"
+	"github.com/liftajp/sdk-tts-go/models/authorization/v202403"
 )
 
 // AuthorizationV202403APIService AuthorizationV202403API service

@@ -19,7 +19,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/liftajp/third-party-tts-go/models/finance/v202309"
+	"github.com/liftajp/sdk-tts-go/models/finance/v202309"
 )
 
 // FinanceV202309APIService FinanceV202309API service

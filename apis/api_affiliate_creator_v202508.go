@@ -17,7 +17,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/liftajp/third-party-tts-go/models/affiliate_creator/v202508"
+	"github.com/liftajp/sdk-tts-go/models/affiliate_creator/v202508"
 )
 
 // AffiliateCreatorV202508APIService AffiliateCreatorV202508API service

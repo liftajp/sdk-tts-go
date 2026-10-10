@@ -12,7 +12,7 @@ package product_v202309
 
 import (
 	"encoding/json"
-	"github.com/liftajp/third-party-tts-go/utils"
+	"github.com/liftajp/sdk-tts-go/utils"
 )
 
 // checks if the Product202309PublishGlobalProductRequestBodyPublishTargetSkusFees type satisfies the MappedNullable interface at compile time

@@ -12,7 +12,7 @@ package order_v202606
 
 import (
 	"encoding/json"
-	"github.com/liftajp/third-party-tts-go/utils"
+	"github.com/liftajp/sdk-tts-go/utils"
 )
 
 // checks if the Order202606PodDetailsResponseData type satisfies the MappedNullable interface at compile time

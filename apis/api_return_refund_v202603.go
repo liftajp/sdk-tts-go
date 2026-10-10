@@ -17,7 +17,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/liftajp/third-party-tts-go/models/return_refund/v202603"
+	"github.com/liftajp/sdk-tts-go/models/return_refund/v202603"
 )
 
 // ReturnRefundV202603APIService ReturnRefundV202603API service

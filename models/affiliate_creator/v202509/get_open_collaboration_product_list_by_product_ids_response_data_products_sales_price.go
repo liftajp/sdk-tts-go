@@ -12,7 +12,7 @@ package affiliate_creator_v202509
 
 import (
 	"encoding/json"
-	"github.com/liftajp/third-party-tts-go/utils"
+	"github.com/liftajp/sdk-tts-go/utils"
 )
 
 // checks if the AffiliateCreator202509GetOpenCollaborationProductListByProductIdsResponseDataProductsSalesPrice type satisfies the MappedNullable interface at compile time

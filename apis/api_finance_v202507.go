@@ -17,7 +17,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/liftajp/third-party-tts-go/models/finance/v202507"
+	"github.com/liftajp/sdk-tts-go/models/finance/v202507"
 )
 
 // FinanceV202507APIService FinanceV202507API service

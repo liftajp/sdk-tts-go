@@ -17,7 +17,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/liftajp/third-party-tts-go/models/analytics/v202511"
+	"github.com/liftajp/sdk-tts-go/models/analytics/v202511"
 )
 
 // AnalyticsV202511APIService AnalyticsV202511API service

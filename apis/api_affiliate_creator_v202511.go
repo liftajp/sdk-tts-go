@@ -19,7 +19,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/liftajp/third-party-tts-go/models/affiliate_creator/v202511"
+	"github.com/liftajp/sdk-tts-go/models/affiliate_creator/v202511"
 )
 
 // AffiliateCreatorV202511APIService AffiliateCreatorV202511API service

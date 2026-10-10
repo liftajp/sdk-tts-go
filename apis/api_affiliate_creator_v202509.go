@@ -19,7 +19,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/liftajp/third-party-tts-go/models/affiliate_creator/v202509"
+	"github.com/liftajp/sdk-tts-go/models/affiliate_creator/v202509"
 )
 
 // AffiliateCreatorV202509APIService AffiliateCreatorV202509API service

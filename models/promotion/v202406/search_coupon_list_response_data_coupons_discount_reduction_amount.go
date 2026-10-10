@@ -12,7 +12,7 @@ package promotion_v202406
 
 import (
 	"encoding/json"
-	"github.com/liftajp/third-party-tts-go/utils"
+	"github.com/liftajp/sdk-tts-go/utils"
 )
 
 // checks if the Promotion202406SearchCouponListResponseDataCouponsDiscountReductionAmount type satisfies the MappedNullable interface at compile time

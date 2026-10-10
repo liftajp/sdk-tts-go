@@ -12,7 +12,7 @@ package finance_v202501
 
 import (
 	"encoding/json"
-	"github.com/liftajp/third-party-tts-go/utils"
+	"github.com/liftajp/sdk-tts-go/utils"
 )
 
 // checks if the Finance202501GetTransactionsbyOrderResponseDataSkuTransactionsFeeTaxBreakdownFee type satisfies the MappedNullable interface at compile time

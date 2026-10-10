@@ -19,7 +19,7 @@ import (
 	"os"
 	"reflect"
 
-	"github.com/liftajp/third-party-tts-go/models/return_refund/v202405"
+	"github.com/liftajp/sdk-tts-go/models/return_refund/v202405"
 )
 
 // ReturnRefundV202405APIService ReturnRefundV202405API service

@@ -17,7 +17,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/liftajp/third-party-tts-go/models/data_reconciliation/v202309"
+	"github.com/liftajp/sdk-tts-go/models/data_reconciliation/v202309"
 )
 
 // DataReconciliationV202309APIService DataReconciliationV202309API service

@@ -20,7 +20,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/liftajp/third-party-tts-go/models/fulfillment/v202309"
+	"github.com/liftajp/sdk-tts-go/models/fulfillment/v202309"
 )
 
 // FulfillmentV202309APIService FulfillmentV202309API service

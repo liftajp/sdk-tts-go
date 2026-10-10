@@ -12,7 +12,7 @@ package seller_v202601
 
 import (
 	"encoding/json"
-	"github.com/liftajp/third-party-tts-go/utils"
+	"github.com/liftajp/sdk-tts-go/utils"
 )
 
 // checks if the Seller202601GetShopGroupsResponseDataShopGroupDataShops type satisfies the MappedNullable interface at compile time

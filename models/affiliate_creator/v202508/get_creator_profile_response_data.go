@@ -12,7 +12,7 @@ package affiliate_creator_v202508
 
 import (
 	"encoding/json"
-	"github.com/liftajp/third-party-tts-go/utils"
+	"github.com/liftajp/sdk-tts-go/utils"
 )
 
 // checks if the AffiliateCreator202508GetCreatorProfileResponseData type satisfies the MappedNullable interface at compile time

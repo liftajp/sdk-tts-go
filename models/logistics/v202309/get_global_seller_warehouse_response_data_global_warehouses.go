@@ -12,7 +12,7 @@ package logistics_v202309
 
 import (
 	"encoding/json"
-	"github.com/liftajp/third-party-tts-go/utils"
+	"github.com/liftajp/sdk-tts-go/utils"
 )
 
 // checks if the Logistics202309GetGlobalSellerWarehouseResponseDataGlobalWarehouses type satisfies the MappedNullable interface at compile time

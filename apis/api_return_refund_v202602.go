@@ -19,7 +19,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/liftajp/third-party-tts-go/models/return_refund/v202602"
+	"github.com/liftajp/sdk-tts-go/models/return_refund/v202602"
 )
 
 // ReturnRefundV202602APIService ReturnRefundV202602API service

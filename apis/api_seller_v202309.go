@@ -17,7 +17,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/liftajp/third-party-tts-go/models/seller/v202309"
+	"github.com/liftajp/sdk-tts-go/models/seller/v202309"
 )
 
 // SellerV202309APIService SellerV202309API service
