@@ -81,6 +81,16 @@ jobs:
       - name: 整理後の SDK を検証
         run: ./scripts/check-sdk.sh sdk
 
+      - name: Trivy セキュリティスキャン
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret,misconfig
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'
+
       - name: 整理内容をコミット
         run: |
           set -euo pipefail

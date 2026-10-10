@@ -55,6 +55,7 @@ SDK の module 宣言は、ダウンロード元の値 `tiktokshop/open/sdk_gola
 `main` への push で `SDK チェック` workflow が起動します。次の確認を自動で行います。
 
 - SDK の生成パッケージと model がコンパイルできること
+- Trivy で SDK、依存関係、秘密情報、設定の HIGH / CRITICAL を検出しないこと
 - `SDK_VERSION` が有効な形式であること
 - 前回の commit と version が同じかどうか
 
@@ -70,8 +71,9 @@ version が変わっていない場合も workflow は失敗させず、GitHub A
 2. release ブランチ上で `scripts/prepare-sdk-release.sh` を実行します。
 3. 公開物に不要な生成用ファイル、ネットワーク接続のサンプルテスト、`test/` ディレクトリだけを削除します。API、model、schema、changelog、README は残します。
 4. 整理後の SDK を再度コンパイル確認します。
-5. 整理内容を release ブランチに commit、push します。
-6. 同じ commit に `sdk/<SDK_VERSION>` の annotated tag を作成して push します。
+5. 整理後のファイルを Trivy でセキュリティスキャンします。
+6. 整理内容を release ブランチに commit、push します。
+7. 同じ commit に `sdk/<SDK_VERSION>` の annotated tag を作成して push します。
 
 例:
 
@@ -82,3 +84,12 @@ SDK_VERSION: v1.0.0-tts.20261010034538621
 ```
 
 同じ version の release ブランチや tag が既に存在する場合、上書きせずに workflow を停止します。認証情報や実際の API response を SDK リポジトリに保存しないでください。
+
+ローカルで同じ Trivy スキャンを実行する場合:
+
+```bash
+trivy fs --scanners vuln,secret,misconfig \
+  --severity HIGH,CRITICAL \
+  --ignore-unfixed \
+  --exit-code 1 .
+```
